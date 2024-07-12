@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "./Provider";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,11 +13,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+      <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
+     
+      </Head>
       <body className={inter.className}>
         <Provider>
 
         {children}
         </Provider>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         </body>
     </html>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
@@ -8,39 +8,40 @@ const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/dashboard');
+    }
+  }, [status]);
+
   const handleSubmit = async (event) => {
-    debugger;
     event.preventDefault();
-    
-    const res = await signIn('credentials', {
-    
+   let siningResponse= await signIn('credentials', {
       username,
       password,
       redirect: false,
-     
     });
-
-  
-
-
-
+    console.log(siningResponse)
+    if (!siningResponse.ok) {
+      swal({
+icon:"error",
+text:`${siningResponse.status}`,
+title:"Error",
+      })
+    }
   };
-if(session){
-  console.log(session)
-return (
-  <>
-  <h1>Hello </h1>
-  <button onClick={()=>signOut()}>SingOut</button>
-  </>
-)
-}else{
 
+  if (session) {
+ router.push("/dashboard")
+  } else {
     return (
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username:</label>
-          <input className='bg-black'
+          <input
+            className='bg-black'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -50,8 +51,8 @@ return (
         <div>
           <label>Password:</label>
           <input
-          className='bg-black'
-            type="text"
+            className='bg-black'
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -60,7 +61,9 @@ return (
         <button type="submit">Login</button>
       </form>
     );
-}
+  }
 };
 
 export default LoginPage;
+
+
