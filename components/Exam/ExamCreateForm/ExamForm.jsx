@@ -1,11 +1,20 @@
 'use client'
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import swal from 'sweetalert';
 
 const ExamForm = () => {
     const [pupils, setPupils] = useState([]);
     const [lessons, setLessons] = useState([]);
-
+    const router = useRouter();
+    const { data: session, status } = useSession();
+    useEffect(() => {
+      if (status == 'unauthenticated') {
+        router.push('/auth/login');
+        return null;
+      }
+    }, [status]);
     useEffect(() => {
         const getPupilAll = async () => {
             try {

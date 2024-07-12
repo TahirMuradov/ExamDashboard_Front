@@ -1,7 +1,17 @@
 'use client'
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const ExamTable = () => {
+    const router = useRouter();
+    const { data: session, status } = useSession();
+    useEffect(() => {
+      if (status == 'unauthenticated') {
+        router.push('/auth/login');
+        return null;
+      }
+    }, [status]);
     const [exams, setExams] = useState([]);
 
     useEffect(() => {
