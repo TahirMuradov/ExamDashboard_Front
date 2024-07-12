@@ -56,7 +56,7 @@ const ExamForm = () => {
 
     const createExam = async () => {
         try {
-            debugger;
+          
             const formData = new FormData(document.getElementById('examForm'));
             const examData = {
                 lessonId: formData.get('lesson'),
