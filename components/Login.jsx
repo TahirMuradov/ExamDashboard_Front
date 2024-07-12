@@ -41,7 +41,7 @@ title:"Error",
         <div>
           <label>Username:</label>
           <input
-            className='bg-black'
+           className='text-black'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -51,14 +51,15 @@ title:"Error",
         <div>
           <label>Password:</label>
           <input
-            className='bg-black'
+            className='text-black'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className='bg-green-500 rounded p-1'>Login</button>
+        
       </form>
     );
   }
