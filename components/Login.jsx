@@ -13,7 +13,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (status === 'authenticated') {
       router.push('/dashboard');
-      return null;
+      
     }
   }, [status]);
 

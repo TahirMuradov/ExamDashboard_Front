@@ -1,6 +1,6 @@
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+
 
 const LogOut = () => {
   const router = useRouter();

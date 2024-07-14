@@ -1,10 +1,21 @@
 "use client"
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
+import Loader from './Loader/Loader';
 
 const Register = () => {
-    
-const route=useRouter();
+
+  let {data:session,status}=useSession();
+  const route=useRouter();
+    if (status=="loading") {
+      return (<Loader/>)
+    }else if(status=="authenticated"){
+
+      history.back();
+      return null;
+    }
+
         const handleRegister = async () => {
             try {
               
@@ -23,7 +34,7 @@ const route=useRouter();
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        // 'Authorization': `Bearer ${your_access_token}`
+                        'Authorization': `Bearer ${your_access_token}`
                     },
                     body: JSON.stringify(registerData)
                 });
