@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Loader from './Loader/Loader';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -32,6 +33,7 @@ text:`${siningResponse.status}`,
 title:"Error",
       })
     }
+    return <Loader/>
   };
 
   if (session) {

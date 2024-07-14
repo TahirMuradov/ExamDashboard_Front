@@ -55,7 +55,7 @@ const handler = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      // JWT'yi decode edin
+  
       const decoded = jwt.decode(token.jwtToken);
 console.log(decoded)
       session.user = {
@@ -63,8 +63,8 @@ console.log(decoded)
         expiration: token.expiration,
         refreshToken: token.refreshToken,
         userId:decoded.Id,
-        email: decoded.email, // Email bilgisini ekleyin
-        role: decoded.role // Role bilgisini ekleyin
+        email: decoded.email, 
+        role: decoded.role 
       };
       return session;
     },

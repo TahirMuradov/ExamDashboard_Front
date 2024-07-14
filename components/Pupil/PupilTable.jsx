@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 const PupilTable = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
+  console.log(session.user?.accessToken)
   useEffect(() => {
     if (status == 'unauthenticated') {
       router.push('/auth/login');
@@ -21,7 +22,7 @@ const PupilTable = () => {
                   method: 'GET',
                   headers: {
                       'Accept': 'application/json',
-                      // 'Authorization': `Bearer ${your_access_token}`
+                         'Authorization': `Bearer ${session.user.accessToken}`
                   }
               });
 
@@ -44,8 +45,8 @@ const PupilTable = () => {
         const response = await fetch(`https://localhost:7268/api/Lesson/DeleteLesson?id=${Id}`, {
             method: 'DELETE',
             headers: {
-                'Accept': 'application/json',
-                // 'Authorization': `Bearer ${your_access_token}`
+                // 'Accept': 'application/json',
+                'Authorization': `Bearer ${session.user.accessToken}`
             }
         });
 

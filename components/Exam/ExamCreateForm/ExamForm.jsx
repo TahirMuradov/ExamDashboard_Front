@@ -9,6 +9,7 @@ const ExamForm = () => {
     const [lessons, setLessons] = useState([]);
     const router = useRouter();
     const { data: session, status } = useSession();
+    console.log(session.user?.accessToken)
     useEffect(() => {
       if (status == 'unauthenticated') {
         router.push('/auth/login');
@@ -22,7 +23,7 @@ const ExamForm = () => {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
-                        // 'Authorization': `Bearer ${your_access_token}`
+                         'Authorization': `Bearer ${session.user.accessToken}`
                     }
                 });
 
@@ -43,7 +44,7 @@ const ExamForm = () => {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
-                        // 'Authorization': `Bearer ${your_access_token}`
+                           'Authorization': `Bearer ${session.user.accessToken}`
                     }
                 });
 
@@ -79,7 +80,7 @@ const ExamForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    // 'Authorization': `Bearer ${your_access_token}`
+                    'Authorization': `Bearer ${session.user.accessToken}`
                 },
                 body: JSON.stringify(examData)
             });

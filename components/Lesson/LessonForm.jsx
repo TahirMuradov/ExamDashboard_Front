@@ -5,7 +5,8 @@ import React, { useEffect } from 'react'
 
 const LessonForm = () => {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data:session, status } = useSession();
+  console.log(session.user?.accessToken)
   useEffect(() => {
     if (status == 'unauthenticated') {
       router.push('/auth/login');
@@ -29,7 +30,7 @@ const LessonForm = () => {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                // 'Authorization': `Bearer ${your_access_token}`
+                  'Authorization': `Bearer ${session.user.accessToken}`
             },
             body: JSON.stringify(lessonData)
         });

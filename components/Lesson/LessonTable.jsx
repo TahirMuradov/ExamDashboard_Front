@@ -5,7 +5,8 @@ import React, { useEffect, useState } from 'react'
 
 const LessonTable = () => {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data:session, status } = useSession();
+  console.log(session.user?.accessToken)
   useEffect(() => {
     if (status == 'unauthenticated') {
       router.push('/auth/login');
@@ -21,7 +22,7 @@ const LessonTable = () => {
                   method: 'GET',
                   headers: {
                       'Accept': 'application/json',
-                      // 'Authorization': `Bearer ${your_access_token}`
+                    'Authorization': `Bearer ${session.user.accessToken}`
                   }
               });
 
@@ -45,7 +46,7 @@ const LessonTable = () => {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
-                // 'Authorization': `Bearer ${your_access_token}`
+                   'Authorization': `Bearer ${session.user.accessToken}`
             }
         });
 
